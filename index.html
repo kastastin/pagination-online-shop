@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>kastastin shop</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.0-2/css/all.min.css" rel="stylesheet">
+    <link href="css/style.css" rel="stylesheet">
+</head>
+
+<body>
+    <!------- Wrapper ------->
+    <div class="wrapper">
+        <!------- Header ------->
+        <div class="header">
+            <!------- Menu-wrap ------->
+            <div class="menu-wrap">
+                <img src="img/logo.png" class="menu-logo">
+                <input type="checkbox" id="menu-checkbox">
+                <nav>
+                    <ul>
+                        <li><a href="#">Головна</a></li>
+                        <li><a href="#">Кошик</a></li>
+                        <li><a href="#">Контакти</a></li>
+                    </ul>
+                </nav>
+                <label for="menu-checkbox">
+                    <i class="fa fa-bars menu-icon"></i>
+                </label>
+            </div>
+            <!------- Custom ------->
+            <div class="custom">
+                <img src="img/custom-background.png" class="custom-background">
+                <img src="img/custom-logo.png" class="custom-logo">
+                <div class="custom-text">
+                    <h1>Квартири та заміські будинки</h1>
+                </div>
+            </div>
+        </div>
+        <!------- Main-aside ------->
+        <div class="main" id="mainDisplay">
+            <!------- Filters ------->
+            <div class="aside">
+                <select onchange="setQuantity(this)">
+                    <option selected value="8">8 на сторінці</option>
+                    <option value="16">16 на сторінці</option>
+                    <option value="24">24 на сторінці</option>
+                    <option value="32">32 на сторінці</option>
+                </select>
+                <select onchange="setSort(this)">
+                    <option selected value="0">Сортувати за назвою А-Я</option>
+                    <option value="1">Сортувати за назвою Я-А</option>
+                    <option value="2">Сортувати за зростанням цін</option>
+                    <option value="3">Сортувати за зменшенням цін</option>
+                </select>
+                <button class="mybtn1" onclick=resetFilters()>Скинути фільтри</button>
+                <p id="basketInformation">В кошику: 0 товарів</p>
+                <h2>Групування:</h2>
+                <div class="grouping"></div>
+                <h2>Вибрати ціну</h2>
+                <div class="choosePrice">
+                    Від 
+                    <input type="text" onchange="getMinPrice(this.value)">
+                    До
+                    <input type="text" onchange="getMaxPrice(this.value)">
+                    <input type="button" class="btnChoosePrice" value="Кнопка">
+                </div>
+            </div>
+            <!------- Pagination ------->
+            <div class="content">
+                <div class="pagination">
+                    <a href="#" class="pagination-main">&laquo;</a>
+                    <a href="#" class="pagination-main">&raquo;</a>
+                </div>
+            </div>
+        </div>
+        <!------- Basket ------->
+        <div class="main" id="basketDisplay" style="display: none;">
+            <div class="aside"></div>
+            <div class="content" style="display:block;">
+                <div id="basketTable">
+                    <h1>Кошик пустий.</h1>
+                </div>
+            </div>
+        </div>
+        <!------- Footer ------->
+        <div class="footer">
+            <p>kastastin</p>
+        </div>
+    </div>
+</body>
+<script>
+    //Функция добавления скрипта
+    const loadScript = (url) => (
+        new Promise((resolve, reject) => {
+            const script = document.createElement('script');
+            script.src = url;
+
+            script.onload = () => resolve(script);
+            script.onerror = () => reject(new Error(`Ошибка загрузки скрипта ${url}`));
+
+            document.head.append(script);
+        })
+    );
+
+    async function Load() {
+        try {
+            await loadScript("./js/scriptProduct.js");
+            await loadScript("./js/scriptBasket.js");
+            await loadScript("./js/scriptConst.js");
+            await loadScript("./js/scriptMain.js");
+            initDocument();
+        } catch (err) {
+            // перехватит любую ошибку в блоках выше
+            alert(err);
+        }
+    }
+    Load();
+</script>
+
+</html>
